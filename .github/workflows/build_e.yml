@@ -34,8 +34,8 @@ jobs:
 
       - name: Restore dependencies
         run: |
-          dotnet restore workload
-          dotnet workload install android
+        #  dotnet restore workload
+        #  dotnet workload install android
           dotnet restore
 
       - name: Build the project
