@@ -20,6 +20,14 @@ jobs:
         with:
           dotnet-version: '7.0.410'
 
+      - name: Install Visual Studio Build Tools
+        run: |
+          # Install Visual Studio Build Tools with the necessary components
+          $ErrorActionPreference = "Stop"
+          Invoke-WebRequest -Uri https://aka.ms/vs/17/release/vs_installer.exe -OutFile vs_installer.exe
+          Start-Process -FilePath vs_installer.exe -ArgumentList "--quiet", "--wait", "--add", "Microsoft.VisualStudio.Workload.MobileDevelopment" -NoNewWindow -Wait
+
+
       - name: Install dependencies
         run: nuget restore XEmuera.sln
 

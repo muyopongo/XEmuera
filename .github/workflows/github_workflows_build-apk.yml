@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  ANDROID_HOME: /usr/local/lib/android/sdk/
+  ANDROID_HOME: /usr/local/lib/android/sdk
 
 
 jobs:
@@ -41,8 +41,8 @@ jobs:
           sudo apt-get install -y openjdk-11-jdk
           sudo apt-get install -y unzip
           sudo wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
-          sudo unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME
-          sudo mkdir latest
+          sudo unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME/
+          sudo mkdir $ANDROID_HOME/latest
           sudo mv $ANDROID_HOME/cmdline-tools/* $ANDROID_HOME/latest/
           sudo mv $ANDROID_HOME/latest $ANDROID_HOME/cmdline-tools
           sudo yes | sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
