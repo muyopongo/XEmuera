@@ -33,9 +33,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: XEmuera.apk
-          path: ${{ env.APPLICATION_NAME }}.Android\bin\Release\${{ PACKAGE_NAME }}-Debug.apk
+          path: ${{ env.APPLICATION_NAME }}.Android\bin\Release\${{ env.PACKAGE_NAME }}-Debug.apk
       
       - name: Debug
-        run: ls ${{ env.APPLICATION_NAME }}.Android\bin\Release\
-        run: tree 
-        run: tree -a
+        run: |
+          ls ${{ env.APPLICATION_NAME }}.Android\bin\Release\
+          tree 
+          tree -a

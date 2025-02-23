@@ -32,7 +32,7 @@ jobs:
           Compress-Archive -Path $apkFolderPath -DestinationPath $apkFolderPath.zip
 
       - name: Upload ZIP artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: bin\Release\android\Xamarin.Android\bin\Release\*.zip
