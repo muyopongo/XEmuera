@@ -48,7 +48,10 @@ jobs:
           sudo yes | sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
           sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          dotnet restore 
+          dotnet restore workload
+          dotnet workload install android
 
       - name: Build APK
         run: dotnet build -c Release

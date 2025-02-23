@@ -19,7 +19,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
 
       - name: Install dependencies
         run: sudo apt-get install -y openjdk-11-jdk
@@ -28,8 +28,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
-          wget https://dotnet.microsoft.com/download/dotnet/7.0/dotnet-sdk-7.0.203-linux-x64.tar.gz
-          sudo mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-7.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          wget https://dotnet.microsoft.com/download/dotnet/7.0/dotnet-sdk-8.0.406-linux-x64.tar.gz
+          sudo mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-8.0.406-linux-x64.tar.gz -C $HOME/dotnet
           sudo export PATH=$PATH:$HOME/dotnet
 
       - name: Restore dependencies
