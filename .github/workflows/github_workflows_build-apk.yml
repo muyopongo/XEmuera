@@ -1,0 +1,45 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0' # Adjust the version as needed
+
+      - name: Install Xamarin.Android
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https
+          sudo sh -c 'echo "deb https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list'
+          sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys EB3E94ADBE1229CF
+          sudo apt-get update
+          sudo apt-get install -y mono-devel
+          sudo apt-get install -y dotnet-sdk-6.0
+          sudo apt-get install -y openjdk-11-jdk
+          sudo apt-get install -y unzip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+          unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME/cmdline-tools
+          yes | $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build APK
+        run: dotnet build -c Release
