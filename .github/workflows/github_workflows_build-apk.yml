@@ -26,7 +26,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '7.0.410' # Adjust the version as needed
+          dotnet-version: '9.0.2' # Adjust the version as needed
 
       - name: Install Xamarin.Android
         run: |
@@ -37,7 +37,7 @@ jobs:
           sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list'
           sudo apt-get update
           sudo apt-get install -y mono-devel
-          sudo apt-get install -y dotnet-sdk-8.0
+          sudo apt-get install -y dotnet-sdk-9.0.2
           sudo apt-get install -y openjdk-11-jdk
           sudo apt-get install -y unzip
           sudo wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
