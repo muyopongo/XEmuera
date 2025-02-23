@@ -8,6 +8,10 @@ on:
     branches:
       - master
 
+env:
+  ANDROID_HOME: /usr/local/lib/android/sdk
+
+
 jobs:
   build:
     name: Build APK
