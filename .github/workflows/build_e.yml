@@ -28,12 +28,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
-          wget https://dotnet.microsoft.com/download/dotnet/7.0/dotnet-sdk-8.0.406-linux-x64.tar.gz
+          wget https://download.visualstudio.microsoft.com/download/pr/d2abdb4c-a96e-4123-9351-e4dd2ea20905/e8010ae2688786ffc1ebca4ebb52f41b/dotnet-sdk-8.0.406-linux-x64.tar.gz
           sudo mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-8.0.406-linux-x64.tar.gz -C $HOME/dotnet
           sudo export PATH=$PATH:$HOME/dotnet
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          dotnet restore workload
+          dotnet workload install android
+          dotnet restore
 
       - name: Build the project
         run: dotnet build --configuration Release
