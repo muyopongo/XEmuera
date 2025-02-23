@@ -1,4 +1,4 @@
-name: Android Build
+name: Android Build D
 
 on:
   push:
@@ -26,6 +26,9 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '8.0.x'
+
+    - name: Install Android Workloads
+      run: dotnet workload install android
 
     - name: Restore NuGet packages
       run: dotnet restore

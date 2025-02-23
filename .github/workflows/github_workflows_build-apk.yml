@@ -46,7 +46,7 @@ jobs:
           sudo mv $ANDROID_HOME/cmdline-tools/* $ANDROID_HOME/latest/
           sudo mv $ANDROID_HOME/latest $ANDROID_HOME/cmdline-tools
           sudo yes | sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-          sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3"
+          sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
       - name: Restore dependencies
         run: dotnet restore
 
