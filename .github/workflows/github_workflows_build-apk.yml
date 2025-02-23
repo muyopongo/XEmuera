@@ -10,22 +10,37 @@ on:
 
 jobs:
   build:
-
-    runs-on: macos-latest
+    name: Build APK
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set default Xamarin SDK versions
-      run: |
-        $VM_ASSETS/select-xamarin-sdk-v2.sh --mono=6.10 --android=10.2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Setup .NET Core SDK 7.0.x
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '7.0.410'
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.410' # Adjust the version as needed
 
-    - name: Install dependencies
-      run: nuget restore <sln_file_path>
+      - name: Install Xamarin.Android
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https
+          wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+          sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+          sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list'
+          sudo apt-get update
+          sudo apt-get install -y mono-devel
+          sudo apt-get install -y dotnet-sdk-8.0
+          sudo apt-get install -y openjdk-11-jdk
+          sudo apt-get install -y unzip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+          unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME/cmdline-tools
+          yes | $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
 
-    - name: Build
-      run: msbuild <csproj_file_path> /t:PackageForAndroid /p:Configuration=Debug
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build APK
+        run: dotnet build -c Release
