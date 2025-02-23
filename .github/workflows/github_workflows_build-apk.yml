@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  ANDROID_HOME: /usr/local/lib/android
+  ANDROID_HOME: /usr/local/lib/android/sdk/
 
 
 jobs:
@@ -42,9 +42,11 @@ jobs:
           sudo apt-get install -y unzip
           sudo wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
           sudo unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME
-          sudo yes | sudo $ANDROID_HOME/tools/bin/sdkmanager --licenses
-          sudo $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3"
-
+          sudo mkdir latest
+          sudo mv cmdline-tools/* latest/
+          sudo mv latest cmdline-tools
+          sudo yes | sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+          sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3"
       - name: Restore dependencies
         run: dotnet restore
 
