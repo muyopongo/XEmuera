@@ -40,10 +40,10 @@ jobs:
           sudo apt-get install -y dotnet-sdk-8.0
           sudo apt-get install -y openjdk-11-jdk
           sudo apt-get install -y unzip
-          wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
-          unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME/cmdline-tools
-          yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-          $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3"
+          sudo wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+          sudo unzip commandlinetools-linux-6858069_latest.zip -d $ANDROID_HOME
+          sudo yes | sudo $ANDROID_HOME/tools/bin/sdkmanager --licenses
+          sudo $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3"
 
       - name: Restore dependencies
         run: dotnet restore
