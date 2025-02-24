@@ -34,7 +34,11 @@ jobs:
 
       - name: Restore dependencies
         run: |
-          dotnet restore workload $(pwd)
+          ls
+          pwd
+          env
+          tree $HOME
+          dotnet restore workload $(pwd)/XEmuera
           dotnet workload install android
           dotnet workload install ios
           dotnet restore
