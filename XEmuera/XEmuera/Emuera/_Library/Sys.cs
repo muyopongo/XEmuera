@@ -1,55 +1,52 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using XEmuera.Forms;
 using System.IO;
-using System.Reflection;
+using XEmuera;
 
-namespace MinorShift._Library;
-
-public static class Sys
+namespace MinorShift._Library
 {
-	static Sys()
+	public static class Sys
 	{
-		ExePath = Assembly.GetEntryAssembly().Location; 
-		#region eee_カレントディレクトリー
-		WorkingDir = Directory.GetCurrentDirectory() + "\\";
-		#endregion
-		ExeDir = Path.GetDirectoryName(ExePath) + "\\";
-		ExeName = Path.GetFileName(ExePath);
-	}
-
-	/// <summary>
-	/// 実行ファイルのパス
-	/// </summary>
-	public static readonly string ExePath;
-
-	/// <summary>
-	/// 実行ファイルのディレクトリ。最後に\を付けたstring
-	/// </summary>
-	public static readonly string ExeDir;
-
-	#region eee_カレントディレクトリー
-	/// <summary>
-	/// 実行ファイルのディレクトリ。最後に\を付けたstring
-	/// </summary>
-	public static readonly string WorkingDir;
-	#endregion
-
-	/// <summary>
-	/// 実行ファイルの名前。ディレクトリなし
-	/// </summary>
-	public static readonly string ExeName;
-
-	/// <summary>
-	/// 2重起動防止。既に同名exeが実行されているならばtrueを返す
-	/// </summary>
-	/// <returns></returns>
-	public static bool PrevInstance()
-	{
-		string thisProcessName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-		if (System.Diagnostics.Process.GetProcessesByName(thisProcessName).Length > 1)
+		public static void Init()
 		{
-			return true;
+			//ExePath = Application.ExecutablePath;
+			ExePath = GameUtils.CurrentGamePath + Path.DirectorySeparatorChar;
+			//ExeDir = Path.GetDirectoryName(ExePath) + "\\";
+			ExeDir = Path.GetDirectoryName(ExePath) + Path.DirectorySeparatorChar;
+			ExeName = Path.GetFileName(ExePath);
 		}
-		return false;
 
+		/// <summary>
+		/// 実行ファイルのパス
+		/// </summary>
+		public static string ExePath { get; private set; }
+
+		/// <summary>
+		/// 実行ファイルのディレクトリ。最後に\を付けたstring
+		/// </summary>
+		public static string ExeDir { get; private set; }
+
+		/// <summary>
+		/// 実行ファイルの名前。ディレクトリなし
+		/// </summary>
+		public static string ExeName { get; private set; }
+
+		/// <summary>
+		/// 2重起動防止。既に同名exeが実行されているならばtrueを返す
+		/// </summary>
+		/// <returns></returns>
+		public static bool PrevInstance()
+		{
+			//string thisProcessName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+			//if (System.Diagnostics.Process.GetProcessesByName(thisProcessName).Length > 1)
+			//{
+			//	return true;
+			//}
+			return false;
+
+		}
 	}
 }
+
