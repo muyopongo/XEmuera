@@ -49,8 +49,8 @@ jobs:
           sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
       - name: Restore dependencies
         run: |
-        #  dotnet restore workload XEmuera/XEmuera.Android
-        #  dotnet workload install android
+          dotnet restore workload $HOME
+          dotnet workload install android
           dotnet restore 
 
       - name: Build APK

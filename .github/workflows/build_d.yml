@@ -28,9 +28,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Install Android Workloads
-      run: ls && tree
-      #  dotnet restore workload XEmuera/XEmuera.Android
-      #  dotnet workload install android
+      run: |
+        dotnet restore workload $HOME
+        dotnet workload install android
+        dotnet workload install ios
 
     - name: Restore NuGet packages
       run: dotnet restore
