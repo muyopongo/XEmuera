@@ -34,7 +34,7 @@ jobs:
 
       - name: Restore dependencies
         run: |
-          dotnet restore workload $HOME
+          dotnet restore workload $(pwd)
           dotnet workload install android
           dotnet workload install ios
           dotnet restore
